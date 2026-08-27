@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+chroma_db/
+*.onnx
+*.onnx.data
+scaler_params_final.json
+.venv/
+venv/
+.vs/
+._*
+.DS_Store
