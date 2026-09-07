@@ -109,30 +109,34 @@ def classify_error_subtype(samples):
     predict_outcome() returned 'Miss'. Returns an error_type string that
     matches a real entry in Appendix A / coaching_rules.txt.
     """
+    # 1. Calculate raw features
     raw = np.array([[s[col] for col in FEATURE_COLS] for s in samples], dtype=np.float32)
 
+    # 2. Calculate release speed
     vel = raw[:, FEATURE_COLS.index("linear_vx"):FEATURE_COLS.index("linear_vz") + 1]
     speeds = np.linalg.norm(vel, axis=1)
     release_speed = float(np.max(speeds)) if len(speeds) > 0 else 0.0
 
-    # Upward loft: ratio of vertical (vy) to forward (vz) velocity at peak speed
+    # 3. Calculate Upward loft
     peak_idx = int(np.argmax(speeds)) if len(speeds) > 0 else 0
     vy_at_release = float(vel[peak_idx, 1]) if len(vel) > 0 else 0.0
     vz_at_release = float(vel[peak_idx, 2]) if len(vel) > 0 else 1e-6
     loft_ratio = vy_at_release / max(abs(vz_at_release), 1e-6)
 
-    # High-frequency jitter: variance of linear acceleration magnitude
+    # 4. Calculate High-frequency jitter
     acc = raw[:, FEATURE_COLS.index("linear_ax"):FEATURE_COLS.index("linear_az") + 1]
     acc_mag = np.linalg.norm(acc, axis=1)
     jitter = float(np.std(acc_mag)) if len(acc_mag) > 0 else 0.0
 
-    # Thresholds are starting points based on the synthetic generator's own
-    # parameter ranges (FYP_SyntheticData.ipynb) - tune against real pilot
-    # data once Phase 2 (human evaluation) collection begins.
-    JITTER_THRESHOLD = 15.0
+    # 5. Thresholds
+    JITTER_THRESHOLD = 999999.0  # Absurdly high to bypass keyboard spikes completely
     WEAK_SPEED_THRESHOLD = 6.5
     FLAT_LOFT_THRESHOLD = 0.4
 
+    # --- NEW: Print the actual numbers to the backend console! ---
+    print(f"\n[DEBUG THROW] Jitter: {jitter:.2f} | Speed: {release_speed:.2f} | Loft: {loft_ratio:.2f}")
+
+    # 6. Make decision
     if jitter > JITTER_THRESHOLD:
         return "Jerky_Motion"
     if release_speed < WEAK_SPEED_THRESHOLD:
