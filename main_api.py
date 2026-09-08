@@ -1,9 +1,33 @@
 import asyncio
+import os
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+import edge_tts
 from intelligent_agent import app as agent_app
 import model_inference
 
 app = FastAPI()
+
+
+# 1. Create a folder to store the audio files and serve it via HTTP
+AUDIO_DIR = "audio_cache"
+os.makedirs(AUDIO_DIR, exist_ok=True)
+app.mount("/audio", StaticFiles(directory=AUDIO_DIR), name="audio")
+
+COACH_VOICE = "en-US-GuyNeural" 
+
+async def generate_voice_file(text: str, filename: str):
+    """Generates a joyful, energetic neural voice file with a slight tempo boost"""
+    filepath = os.path.join(AUDIO_DIR, filename)
+    
+    # We add rate="+8%" so the coach speaks with snappy athletic enthusiasm!
+    communicate = edge_tts.Communicate(
+        text=text, 
+        voice=COACH_VOICE, 
+        rate="+8%", 
+        pitch="+2Hz"
+    )
+    await communicate.save(filepath)
 
 
 @app.on_event("startup")
@@ -25,6 +49,24 @@ async def startup_event():
         agent_app.invoke({"error_type": error})
         
     print("--- CACHE WARMED UP! SERVER IS 100% READY FOR UNITY ---\n")
+
+    print("\n--- PRE-WARMING AI COACH (Text & Neural Voice) ---")
+    
+    # 1. Generate Voice for "Nice Shot"
+    nice_shot_text = "Nice shot! Keep that same motion."
+    await generate_voice_file(nice_shot_text, "Made.mp3")
+    
+    # 2. Generate Voice for the 4 Errors
+    known_errors = ["Jerky_Motion", "Low_Velocity", "Arc_Too_Flat", "Aim_Off"]
+    for error in known_errors:
+        print(f"Generating voice & text for: {error}...")
+        result = agent_app.invoke({"error_type": error})
+        tip_text = result["feedback"]
+        
+        # Save audio file named after the error (e.g. Jerky_Motion.mp3)
+        await generate_voice_file(tip_text, f"{error}.mp3")
+        
+    print("--- 100% READY! HIGH-QUALITY VOICES GENERATED ---\n")
 
 
 
