@@ -1,5 +1,6 @@
 import asyncio
 import os
+import random
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 import edge_tts
@@ -8,100 +9,105 @@ import model_inference
 
 app = FastAPI()
 
-
-# 1. Create a folder to store the audio files and serve it via HTTP
+# 1. Setup Audio Directory
 AUDIO_DIR = "audio_cache"
 os.makedirs(AUDIO_DIR, exist_ok=True)
 app.mount("/audio", StaticFiles(directory=AUDIO_DIR), name="audio")
 
-COACH_VOICE = "en-US-GuyNeural" 
+COACH_VOICE = "en-US-GuyNeural"
+
+# Biomechanical sub-queries so RAG retrieves diverse paragraphs from coaching_rules.txt
+DIVERSE_ERROR_PROMPTS = {
+    "Aim_Off": [
+        "Aim_Off: Focus on shooting elbow alignment under the ball",
+        "Aim_Off: Focus on guide hand releasing without pushing sideways",
+        "Aim_Off: Focus on squaring shoulders and pointing toes to the basket"
+    ],
+    "Arc_Too_Flat": [
+        "Arc_Too_Flat: Focus on pushing arm upward to ceiling for a 45 degree angle",
+        "Arc_Too_Flat: Focus on elbow finishing above eye level on release",
+        "Arc_Too_Flat: Focus on lofting the ball into the cylinder rather than driving forward"
+    ],
+    "Low_Velocity": [
+        "Low_Velocity: Focus on bending knees and exploding power from legs",
+        "Low_Velocity: Focus on powerful wrist flexion to generate backspin and carry",
+        "Low_Velocity: Focus on full elbow extension without short-arming the release"
+    ],
+    "Jerky_Motion": [
+        "Jerky_Motion: Focus on fluid momentum transfer without snapping shoulder",
+        "Jerky_Motion: Focus on relaxing wrist grip to eliminate release tension",
+        "Jerky_Motion: Focus on rhythmic continuous motion following the BEEF principle"
+    ]
+}
+
+# Cache to store pre-warmed diverse feedback strings
+DIVERSE_FEEDBACK_CACHE = {}
+
+# Tracks the last used tip index so we never repeat the same tip twice in a row
+last_used_variation = {
+    "Aim_Off": 0,
+    "Arc_Too_Flat": 0,
+    "Low_Velocity": 0,
+    "Jerky_Motion": 0
+}
 
 async def generate_voice_file(text: str, filename: str):
-    """Generates a joyful, energetic neural voice file with a slight tempo boost"""
+    """Generates an energetic neural voice file using Edge TTS"""
     filepath = os.path.join(AUDIO_DIR, filename)
-    
-    # We add rate="+8%" so the coach speaks with snappy athletic enthusiasm!
     communicate = edge_tts.Communicate(
-        text=text, 
-        voice=COACH_VOICE, 
-        rate="+8%", 
+        text=text,
+        voice=COACH_VOICE,
+        rate="+8%",
         pitch="+2Hz"
     )
     await communicate.save(filepath)
 
-
 @app.on_event("startup")
 async def startup_event():
-    # 1. Load the ONNX model + scaler
+    # 1. Load ONNX Model & Scaler
     model_inference.load_model(
         onnx_path="LSTM_Basketball_Classifier.onnx",
         scaler_path="scaler_params_final.json",
     )
     
-    # 2. --- NEW FIX: PRE-WARM THE RAG CACHE ---
-    # We generate the tips for all 4 possible errors right now so Unity never has to wait.
-    print("\n--- PRE-WARMING AI COACH CACHE (This might take 1-2 minutes on CPU) ---")
-    known_errors = ["Jerky_Motion", "Low_Velocity", "Arc_Too_Flat", "Aim_Off"]
-    
-    for error in known_errors:
-        print(f"Generating and caching tip for: {error}...")
-        # We run this directly to force the Grader -> Generator pipeline to run once
-        agent_app.invoke({"error_type": error})
-        
-    print("--- CACHE WARMED UP! SERVER IS 100% READY FOR UNITY ---\n")
+    print("\n--- PRE-WARMING DIVERSE RAG COACHING TIPS & VOICES ---")
 
-    print("\n--- PRE-WARMING AI COACH (Text & Neural Voice) ---")
-    
-    # 1. Generate Voice for "Nice Shot"
-    nice_shot_text = "Nice shot! Keep that same motion."
+    # 2. Pre-generate 'Made' Voice
+    nice_shot_text = "Nice shot! Keep that same smooth motion."
     await generate_voice_file(nice_shot_text, "Made.mp3")
-    
-    # 2. Generate Voice for the 4 Errors
-    known_errors = ["Jerky_Motion", "Low_Velocity", "Arc_Too_Flat", "Aim_Off"]
-    for error in known_errors:
-        print(f"Generating voice & text for: {error}...")
-        result = agent_app.invoke({"error_type": error})
-        tip_text = result["feedback"]
-        
-        # Save audio file named after the error (e.g. Jerky_Motion.mp3)
-        await generate_voice_file(tip_text, f"{error}.mp3")
-        
-    print("--- 100% READY! HIGH-QUALITY VOICES GENERATED ---\n")
 
+    # 3. Pre-generate 3 Distinct RAG Tips & MP3s for every Error Type
+    for error_type, prompts in DIVERSE_ERROR_PROMPTS.items():
+        for i, sub_prompt in enumerate(prompts):
+            cache_key = f"{error_type}_{i}"
+            print(f"Generating RAG Tip & Voice for [{cache_key}]...")
+            
+            # Query the RAG graph (Chroma DB + Ollama)
+            result = agent_app.invoke({"error_type": sub_prompt})
+            tip_text = result["feedback"]
+            
+            # Clean up quotes if LLM added any
+            tip_text = tip_text.replace('"', '').strip()
+            
+            DIVERSE_FEEDBACK_CACHE[cache_key] = tip_text
+            
+            # Synthesize matching audio file (e.g., Aim_Off_0.mp3, Aim_Off_1.mp3)
+            await generate_voice_file(tip_text, f"{cache_key}.mp3")
 
+    print("--- 100% READY! DIVERSE RAG VOICE POOL GENERATED ---\n")
 
 
 @app.post("/analyze_movement")
 async def analyze_movement(data: dict):
-    """Legacy/manual endpoint: pass a known error_type string directly,
-    bypassing the model. Useful for testing the RAG side in isolation."""
-    # agent_app.invoke() is blocking (calls Ollama synchronously) - run it in
-    # a worker thread so it doesn't freeze the whole server for other requests.
     result = await asyncio.to_thread(agent_app.invoke, {"error_type": data["error"]})
     return {"feedback": result["feedback"]}
 
 
 @app.post("/predict_and_coach")
 async def predict_and_coach(data: dict):
-    """
-    Real pipeline endpoint. Expects:
-        { "samples": [ {hand_x, hand_y, ..., angular_vz}, ... ] }
-    i.e. the raw per-timestep sample list for one completed throw, in the
-    same shape TrajectoryLogger already produces.
-
-    Runs: LSTM Made/Miss prediction -> (if Miss) slip/mistake heuristic ->
-    RAG coaching feedback -> returns everything to Unity in one response.
-
-    IMPORTANT: predict_outcome() and agent_app.invoke() are both blocking
-    calls (ONNX inference and synchronous Ollama HTTP calls respectively).
-    Without asyncio.to_thread, FastAPI's single event loop would process
-    requests strictly one-at-a-time, causing later requests to queue behind
-    earlier ones and time out client-side even though the server eventually
-    answers correctly - this was exactly the "Request timeout" issue seen
-    when multiple throws were sent in quick succession from Unity.
-    """
     samples = data["samples"]
 
+    # 1. Run LSTM Inference
     outcome, prob_made = await asyncio.to_thread(model_inference.predict_outcome, samples)
 
     if outcome == "Made":
@@ -109,21 +115,33 @@ async def predict_and_coach(data: dict):
             "outcome": "Made",
             "probability_made": prob_made,
             "error_type": None,
-            "feedback": "Nice shot! Keep that same motion.",
+            "feedback": "Nice shot! Keep that same smooth motion.",
         }
 
-    error_type = await asyncio.to_thread(model_inference.classify_error_subtype, samples)
-    result = await asyncio.to_thread(agent_app.invoke, {"error_type": error_type})
+    # 2. Classify Biomechanical Error Subtype
+    base_error = await asyncio.to_thread(model_inference.classify_error_subtype, samples)
+
+    # 3. Round-Robin Rotation: pick the next variation so tips NEVER repeat back-to-back
+    current_idx = last_used_variation.get(base_error, 0)
+    next_idx = (current_idx + 1) % len(DIVERSE_ERROR_PROMPTS.get(base_error, [0]))
+    last_used_variation[base_error] = next_idx
+
+    keyed_error = f"{base_error}_{next_idx}"
+    
+    # Retrieve the pre-warmed RAG tip from our pool
+    feedback_text = DIVERSE_FEEDBACK_CACHE.get(
+        keyed_error, 
+        "Focus on maintaining a high release point and a smooth follow-through."
+    )
 
     return {
         "outcome": "Miss",
         "probability_made": prob_made,
-        "error_type": error_type,
-        "feedback": result["feedback"],
+        "error_type": keyed_error,  # e.g., "Aim_Off_1" -> Unity fetches Aim_Off_1.mp3 automatically!
+        "feedback": feedback_text,
     }
 
 
 @app.get("/health")
 async def health():
-    # Quick endpoint to confirm the server is up before wiring Unity to it.
     return {"status": "ok"}
