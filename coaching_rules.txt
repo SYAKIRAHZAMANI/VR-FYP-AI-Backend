@@ -1,100 +1,89 @@
-[ID: PREP_01 | STATE: Prep | ERROR: Feet_Parallel | CUE: "Stagger your feet. A wider base provides better balance for the throw."]
-[ID: PREP_02 | STATE: Prep | ERROR: Weight_Back | CUE: "Distribute your weight forward. Keep your center of gravity balanced."]
-[ID: PREP_03 | STATE: Prep | ERROR: Grip_Tense | CUE: "Relax your hand. Tension in the fingers reduces the fluid wrist snap."]
-[ID: PREP_04 | STATE: Prep | ERROR: Shoulder_Slump | CUE: "Keep your shoulders level to ensure a consistent throwing plane."]
-[ID: PREP_05 | STATE: Prep | ERROR: Head_Not_Still | CUE: "Keep your gaze fixed on the target. Turning your head throws off your alignment."]
-[ID: PREP_06 | STATE: Prep | ERROR: Body_Twisted | CUE: "Square your hips to the target before starting the backswing."]
-[ID: PREP_07 | STATE: Prep | ERROR: Elbow_Too_High | CUE: "Lower your elbow slightly; it should be aligned with your shoulder."]
-[ID: PREP_08 | STATE: Prep | ERROR: Wrist_Locked | CUE: "Keep your wrist flexible. A locked wrist prevents the final flick."]
-[ID: PREP_09 | STATE: Prep | ERROR: Too_Close_To_Target | CUE: "Take a half-step back to create more room for your arm swing."]
-[ID: PREP_10 | STATE: Prep | ERROR: Unstable_Base | CUE: "Your stance is too narrow. Widen your feet to improve stability."]
-[ID: PREP_11 | STATE: Prep | ERROR: Looking_Down | CUE: "Keep your eyes on the target, not your feet."]
-[ID: PREP_12 | STATE: Prep | ERROR: Arms_Hidden | CUE: "Keep your throwing arm visible and ready to swing."]
-[ID: PREP_13 | STATE: Prep | ERROR: Hasty_Start | CUE: "Take a deep breath and settle before initiating the movement."]
-[ID: PREP_14 | STATE: Prep | ERROR: Elbow_Tucked | CUE: "Don't tuck your elbow too close. Give your arm space to move naturally."]
-[ID: PREP_15 | STATE: Prep | ERROR: Lack_of_Focus | CUE: "Visualize the throw before you begin. Focus is key to motor performance."]
-[ID: EXEC_01 | STATE: Execution | ERROR: Early_Release | CUE: "Released too early. Hold the ball until your arm is at eye level."]
-[ID: EXEC_02 | STATE: Execution | ERROR: Late_Release | CUE: "Released too late. Snap your wrist forward at the peak of your swing."]
-[ID: EXEC_03 | STATE: Execution | ERROR: Low_Velocity | CUE: "Increase your acceleration through the release point."]
-[ID: EXEC_04 | STATE: Execution | ERROR: High_Velocity | CUE: "Too much power. Focus on a controlled, smooth release instead."]
-[ID: EXEC_05 | STATE: Execution | ERROR: Elbow_Drop | CUE: "Maintain elbow height. A dropped elbow causes the ball to lose arc."]
-[ID: EXEC_06 | STATE: Execution | ERROR: Jerky_Motion | CUE: "Your swing is erratic. Aim for a fluid, continuous motion."]
-[ID: EXEC_07 | STATE: Execution | ERROR: Arm_Stiff | CUE: "Keep your arm relaxed. A stiff arm leads to inaccurate release."]
-[ID: EXEC_08 | STATE: Execution | ERROR: Deviation_Left | CUE: "You pulled to the left. Ensure your hand follows a straight path."]
-[ID: EXEC_09 | STATE: Execution | ERROR: Deviation_Right | CUE: "You pushed to the right. Correct your hand path toward the target center."]
-[ID: EXEC_10 | STATE: Execution | ERROR: Short_Swing | CUE: "Extend your backswing further to create more momentum."]
-[ID: EXEC_11 | STATE: Execution | ERROR: Lack_of_Snap | CUE: "Flick your wrist at the moment of release to improve spin and control."]
-[ID: EXEC_12 | STATE: Execution | ERROR: Arc_Too_Flat | CUE: "Throw with a higher arc to reach the target accurately."]
-[ID: EXEC_13 | STATE: Execution | ERROR: Arc_Too_High | CUE: "The arc was too high. Aim for a flatter, more direct path."]
-[ID: EXEC_14 | STATE: Execution | ERROR: Slow_Acceleration | CUE: "Accelerate smoothly. Sudden jerks decrease your accuracy."]
-[ID: EXEC_15 | STATE: Execution | ERROR: Aim_Off | CUE: "Re-align your hand path. You are aiming wide of the target."]
-[ID: EXEC_16 | STATE: Execution | ERROR: Wrist_Drag | CUE: "Your wrist is dragging. Keep it aligned behind the ball."]
-[ID: EXEC_17 | STATE: Execution | ERROR: Body_Sway | CUE: "Keep your torso still; sway interferes with your aim."]
-[ID: EXEC_18 | STATE: Execution | ERROR: Arm_Crossed | CUE: "Keep your arm moving in a vertical plane; don't cross your body."]
-[ID: EXEC_19 | STATE: Execution | ERROR: Inconsistent_Speed | CUE: "Maintain a steady rhythm throughout your swing."]
-[ID: EXEC_20 | STATE: Execution | ERROR: Release_Angle_Low | CUE: "Raise your release angle. Aim for a 45-degree trajectory."]
-[ID: EXEC_21 | STATE: Execution | ERROR: Force_Imbalance | CUE: "Distribute your force equally. You are favoring one side."]
-[ID: EXEC_22 | STATE: Execution | ERROR: Quick_Release | CUE: "Don't rush the release. Complete the full arm swing."]
-[ID: EXEC_23 | STATE: Execution | ERROR: Pushing_Motion | CUE: "This is a throw, not a push. Use a snapping wrist motion."]
-[ID: EXEC_24 | STATE: Execution | ERROR: Weak_Snap | CUE: "Add more snap to your wrist for better control."]
-[ID: EXEC_25 | STATE: Execution | ERROR: Trajectory_Unstable | CUE: "Stabilize your hand path. It’s wobbling during the swing."]
-[ID: FOLL_01 | STATE: Follow | ERROR: Abrupt_Stop | CUE: "Follow through! Don't stop your arm immediately after release."]
-[ID: FOLL_02 | STATE: Follow | ERROR: No_Extension | CUE: "Fully extend your arm toward the target after the release."]
-[ID: FOLL_03 | STATE: Follow | ERROR: Looking_Away | CUE: "Keep watching the ball until it hits the target."]
-[ID: FOLL_04 | STATE: Follow | ERROR: Body_Leaning | CUE: "Stay upright during follow-through; don't collapse your posture."]
-[ID: FOLL_05 | STATE: Follow | ERROR: Hand_Drops | CUE: "Keep your hand up after release to ensure good arc."]
-[ID: FOLL_06 | STATE: Follow | ERROR: Tension_Remain | CUE: "Relax your muscles once the ball is released."]
-[ID: FOLL_07 | STATE: Follow | ERROR: Off_Balance | CUE: "Re-center your balance after the throw."]
-[ID: FOLL_08 | STATE: Follow | ERROR: Early_Reset | CUE: "Maintain your throwing pose for a second longer."]
-[ID: FOLL_09 | STATE: Follow | ERROR: Uneven_Follow | CUE: "Ensure both arms are balanced during the follow-through."]
-[ID: FOLL_10 | STATE: Follow | ERROR: Inconsistent_Pose | CUE: "Try to end in the exact same position every time."]
-[ID: TECH_01 | STATE: Execution | ERROR: Grip_Too_Low | CUE: "Adjust your grip higher on the object for better leverage."]
-[ID: TECH_02 | STATE: Execution | ERROR: Grip_Too_High | CUE: "Lower your grip. You are losing control of the object's arc."]
-[ID: TECH_03 | STATE: Execution | ERROR: Wrist_Flexion | CUE: "Increase wrist flexion to generate more spin and stability."]
-[ID: TECH_04 | STATE: Execution | ERROR: Wrist_Extension | CUE: "Reduce wrist extension; it is causing the ball to sail too high."]
-[ID: TECH_05 | STATE: Execution | ERROR: Elbow_Out | CUE: "Tuck the elbow slightly. Flaring it out ruins your alignment."]
-[ID: TECH_06 | STATE: Execution | ERROR: Shoulder_Tension | CUE: "Drop your shoulders. Tension is preventing a smooth swing."]
-[ID: TECH_07 | STATE: Execution | ERROR: Knee_Lock | CUE: "Unlock your knees. Use your legs to power the throw."]
-[ID: TECH_08 | STATE: Execution | ERROR: Hip_Rotation_Late | CUE: "Rotate your hips earlier to transfer momentum to your arm."]
-[ID: TECH_09 | STATE: Execution | ERROR: Trunk_Lean | CUE: "Keep your trunk stable. Leaning prevents a clean release."]
-[ID: TECH_10 | STATE: Execution | ERROR: Fingers_Spread | CUE: "Keep fingers slightly closer for a more secure, balanced grip."]
-[ID: TECH_11 | STATE: Execution | ERROR: Thumb_Placement | CUE: "Check your thumb placement; it should support the object's weight."]
-[ID: TECH_12 | STATE: Execution | ERROR: Lack_of_Backspin | CUE: "Flick the fingers at release to impart stabilizing backspin."]
-[ID: TECH_13 | STATE: Execution | ERROR: Arm_Too_Wide | CUE: "Narrow your arm arc; keep the motion tighter to the body."]
-[ID: TECH_14 | STATE: Execution | ERROR: Hand_Position_Late | CUE: "Your hand is lagging behind. Start your forward swing earlier."]
-[ID: TECH_15 | STATE: Execution | ERROR: Swing_Plane_Flat | CUE: "Increase the vertical plane of your swing for better lift."]
-[ID: TECH_16 | STATE: Execution | ERROR: Swing_Plane_Steep | CUE: "Your swing is too vertical. Level it out to reduce air resistance."]
-[ID: TECH_17 | STATE: Execution | ERROR: Poor_Calibration | CUE: "Recalibrate your distance perception; aim for the target's center."]
-[ID: TECH_18 | STATE: Execution | ERROR: Muscle_Fatigue | CUE: "You seem tired. Take a short rest to avoid repetitive strain."]
-[ID: TECH_19 | STATE: Execution | ERROR: Inconsistent_Tempo | CUE: "Rhythm is off. Maintain the same speed throughout the swing."]
-[ID: TECH_20 | STATE: Execution | ERROR: Locked_Shoulder | CUE: "Let the shoulder move naturally with your arm swing."]
-[ID: TECH_21 | STATE: Execution | ERROR: Non_Dominant_Usage | CUE: "Ensure you are utilizing your dominant hand effectively."]
-[ID: TECH_22 | STATE: Execution | ERROR: Grip_Width | CUE: "Your grip width is too narrow. Adjust for better object stability."]
-[ID: TECH_23 | STATE: Execution | ERROR: Lack_of_Focus_Point | CUE: "Pick a specific point on the target; don't just throw vaguely."]
-[ID: TECH_24 | STATE: Execution | ERROR: Early_Deceleration | CUE: "Accelerate through the entire swing, don't slow down before release."]
-[ID: TECH_25 | STATE: Execution | ERROR: Poor_Weight_Shift | CUE: "Shift your weight from back foot to front foot during the throw."]
-[ID: COG_01 | STATE: Prep | ERROR: Distracted | CUE: "Re-focus on the target. Eliminate environmental distractions."]
-[ID: COG_02 | STATE: Prep | ERROR: Rushing | CUE: "Slow down. Precision is more important than speed right now."]
-[ID: COG_03 | STATE: Prep | ERROR: Frustrated | CUE: "Take a deep breath. Frustration leads to poor motor control."]
-[ID: COG_04 | STATE: Prep | ERROR: Unsure_Of_Task | CUE: "Review the target position. Do you understand the required arc?"]
-[ID: COG_05 | STATE: Execution | ERROR: Overthinking | CUE: "Trust your motor memory. Don't over-analyze the throw mid-swing."]
-[ID: COG_06 | STATE: Execution | ERROR: Hesitation | CUE: "Commit to the throw. Hesitation causes release timing errors."]
-[ID: COG_07 | STATE: Execution | ERROR: Lack_of_Confidence | CUE: "You have the skills. Commit fully to the movement."]
-[ID: COG_08 | STATE: Execution | ERROR: Tunnel_Vision | CUE: "Stay aware of your surroundings, not just the target."]
-[ID: COG_09 | STATE: Follow | ERROR: Impatient | CUE: "Wait for the ball to land before starting the next repetition."]
-[ID: COG_10 | STATE: Follow | ERROR: Self_Critical | CUE: "Focus on the next throw; don't dwell on the previous miss."]
-[ID: COG_11 | STATE: Prep | ERROR: Boredom | CUE: "Try to beat your previous record. Keep the intensity high."]
-[ID: COG_12 | STATE: Prep | ERROR: Mental_Block | CUE: "Close your eyes, visualize the perfect throw, then execute."]
-[ID: COG_13 | STATE: Execution | ERROR: Anxiety | CUE: "Your movements are tight. Loosen up and let the throw flow."]
-[ID: COG_14 | STATE: Execution | ERROR: Panic_Release | CUE: "Stay calm. A panicked release is never accurate."]
-[ID: COG_15 | STATE: Follow | ERROR: Success_Distraction | CUE: "Great throw! Maintain that focus for the next one."]
-[ID: COG_16 | STATE: Prep | ERROR: Fatigue_Mental | CUE: "Your focus is dropping. A quick break will improve your score."]
-[ID: COG_17 | STATE: Execution | ERROR: Underestimation | CUE: "Don't underestimate the distance. Put more effort into the swing."]
-[ID: COG_18 | STATE: Execution | ERROR: Overestimation | CUE: "Easy does it. You are using too much force for this distance."]
-[ID: COG_19 | STATE: Prep | ERROR: Poor_Preparation | CUE: "Spend 2 seconds preparing. Don't rush the start."]
-[ID: COG_20 | STATE: Execution | ERROR: Lack_of_Intent | CUE: "Be intentional with your movement. Every throw counts."]
-[ID: COG_21 | STATE: Follow | ERROR: Loss_of_Posture | CUE: "Regain your stance immediately after the throw."]
-[ID: COG_22 | STATE: Prep | ERROR: Incorrect_Strategy | CUE: "Try a different release point if your current strategy isn't working."]
-[ID: COG_23 | STATE: Execution | ERROR: Habitual_Error | CUE: "You're repeating the same error. Stop, reset, and try again."]
-[ID: COG_24 | STATE: Follow | ERROR: Neglect_Analysis | CUE: "Analyze where it went. Did it go left, right, or short?"]
-[ID: COG_25 | STATE: Execution | ERROR: Inattentive | CUE: "Focus on the release point specifically. That is your error zone."]
+SOURCE: FIBA Official Basketball Coaching Manual (Level 2) - Correcting Shooting Technique: Flat Shot
+A successful jump shot relies heavily on the upward trajectory and optimal entry angle of the ball into the hoop. When the flight arc is too flat, the effective target area of the rim decreases dramatically, causing shots to rebound harshly off the front or back iron. To correct a flat arc, the shooter must elevate their release point so that the shooting elbow finishes above eye level at the top of the shot. Looking underneath the ball rather than over the top helps guide the trajectory upwards toward the ceiling rather than pushing it forwards towards the backboard.
+
+SOURCE: Magill & Anderson (2017) / Interim Report on Movement Analysis - Arc and Release Angle
+Biomechanically, an optimal release angle of approximately 45 degrees maximizes the probability of the ball passing cleanly through the basket. When a player exhibits the execution error Arc_Too_Flat or Release_Angle_Low, the shooter fails to achieve sufficient vertical lift during wrist extension. Motor control guidelines specify raising the release point and extending the shooting arm vertically. Maintaining elbow height throughout the acceleration phase prevents the elbow from dropping, which is the primary cause of trajectory flattening and reduced margin for error at the rim.
+
+SOURCE: 7 Tips To Improve Your Shooting Mechanics - USA Basketball
+Fundamental shooting mechanics require a balanced stance, smooth delivery, and an unhurried release. Feet should be shoulder-width apart with knees flexed to generate initial kinetic energy. During delivery, the ball must ascend in a fluid, continuous line without dipping behind the head or pausing at the forehead. The shooting elbow must remain directly underneath the ball, ensuring that the hand and arm expand in a straight line toward the basket. Releasing the ball before reaching the apex of the jump harnesses upward legs power for a smooth flight trajectory.
+
+SOURCE: FIBA Official Basketball Coaching Manual (Level 1) - Foundation for the Shot
+The primary source of power in basketball shooting stems from the lower body rather than the upper torso or arms. Athletes who rely solely on arm strength often introduce exaggerated torso swaying or jerking motions, leading to inconsistent distance control. Pushing explosively from a balanced, flexed knee stance transfers energy smoothly up through the core, shoulder, and extension of the shooting arm. This vertical kinetic chain enables effortless range and maintains proper high-arc trajectory even during long-distance jump shots.
+
+SOURCE: FIBA Official Basketball Coaching Manual (Level 1) - Grip on the Ball
+Proper ball placement and grip establish control and stability prior to release. The shooting hand must be positioned directly underneath or behind the basketball, with fingers spread comfortably across the leather seams while avoiding palm contact. The non-shooting guide hand rests lightly on the side of the ball purely for balance. Positioning the elbow directly below the ball aligns the radius and ulna in a vertical plane, preventing lateral deviation and allowing the shooter to push directly upward into the release phase.
+
+SOURCE: FIBA Official Basketball Coaching Manual (Level 1) - Top of the Shot and Releasing the Ball
+At the peak of the shooting motion, the release is finalized through a relaxed, fluid wrist flexion (wrist flick). This snapping movement imparts pure backward rotation (backspin) onto the basketball. Backspin stabilizes the ball's aerodynamic flight path and creates a soft touch upon rim contact, allowing the ball to deaden and drop into the net. The non-shooting guide hand must quietly separate from the ball just before final extension, ensuring it imparts no unwanted side spin or off-target lateral force.
+
+SOURCE: FIBA Official Basketball Coaching Manual (Level 2) - Correcting Shooting Technique: Off-Line Shot
+Lateral deviations in shooting (pushing the ball left or right of the rim target) indicate misalignment within the shooting plane. The dominant shoulder, elbow, wrist, and index finger must align vertically with the center of the basket. If the shooting elbow flares outward (abduction), the force vector shifts offline, causing sideways rotation. Coaches should verify that the shooter keeps their elbow tucked underneath the ball and maintains a straight follow-through with fingers pointing straight toward the target without twisting the hand upon release.
+
+SOURCE: OPTIMAL Theory of Motor Learning (Wulf & Lewthwaite, 2016) / FIBA Level 2 Manual
+When instructing players on shooting accuracy and arc correction, adopting an external focus of attention yields superior motor skill retention compared to internal mechanical instructions. Directing the player's focus toward external movement outcomes—such as visualizing the ball tracing a high parabolic trajectory through the air or targeting a point high above the rim—encourages self-organization of the musculoskeletal system. Instructing athletes to focus on the ball's flight rather than internal joint angles smooths erratic delivery and produces consistent release velocity.
+
+SOURCE: Magill & Anderson (2017) / FIBA Official Basketball Coaching Manual (Level 2)
+Inadequate wrist flexion results in a knuckleball flight lacking stabilizing backspin (Lack_of_Backspin or Weak_Snap). To generate backspin, the shooter must snap the wrist loosely at the instant of release, allowing the ball to roll smoothly off the fingertips—primarily the index and middle fingers. A locked or rigid wrist hinders fluid energy transfer, reducing shot rotation and causing erratic bounces off the rim. Corrective drills emphasize relaxed wrist flexion and visual inspection of uniform backward spin during flight.
+
+SOURCE: 7 Tips To Improve Your Shooting Mechanics - USA Basketball / Magill & Anderson (2017)
+A proper follow-through requires holding the release pose until the basketball contacts the target. The shooting arm should be fully extended with the wrist flexed downward and fingers pointed directly toward the rim or top of the backboard. Abruptly dropping the hand or collapsing the arm immediately after release (Abrupt_Stop or Hand_Drops) truncates the upward kinetic momentum, causing the shot to fall short or lose arc. Maintaining a relaxed, high follow-through ensures consistent trajectory and arc height.
+
+SOURCE: USA Basketball Fundamentals Guide / Wulf & Lewthwaite (2016)
+Visual focus on the target must be established early in the shooting sequence and maintained throughout delivery and follow-through. Tracking the flight of the ball in the air causes the shooter's head to tilt backward, altering body balance and causing the shooter to fade backwards (fading shot). Shooters should lock their vision onto a specific target spot—such as the front or back of the rim—and keep their head stationary until completion of the motion to ensure biomechanical stability.
+
+SOURCE: FIBA Official Basketball Coaching Manual (Level 1) - Teaching a Fluid Shooting Style
+A fluid shooting motion requires a continuous, unbroken transfer of upward force from the legs through the release point. Hitching or pausing the ball at the forehead disrupts momentum, forcing the upper body to compensate by pushing the ball. This pause slows down shot execution, making it vulnerable to defensive contests and causing erratic depth control. Practicing smooth upward momentum from hip height into a high extension produces a seamless, repeatable shooting rhythmic tempo.
+
+SOURCE: FIBA Official Basketball Coaching Manual (Level 1) - Jump Shot Mechanics
+Execution of a jump shot requires precise synchronization between vertical jump height and arm extension. The ball must be released at or just prior to the apex of the jump to capture maximum leg power. Releasing the ball on the way down forces the shooter to rely entirely on arm push, resulting in short shots. The shooter must land in the exact same spot from which they leaped, maintaining upright balance without drifting forward, backward, or laterally.
+
+SOURCE: Biomechanics of Basketball Shooting / FIBA Coaching Manual (Level 2) - Side Spin Correction
+Improper guide hand mechanics are a major cause of side spin and off-line shooting errors. The non-shooting hand should support the ball laterally during the upward motion but must disengage completely at the instant of release. If the guide hand thumb or palm pushes against the ball during wrist flexion, it imparts unwanted lateral force and side spin. Shooters must ensure the palm of their non-shooting hand finishes facing inward toward the body, confirming it played no active role in propelling the ball.
+
+SOURCE: FIBA Official Basketball Coaching Manual (Level 2) - Correcting Shooting Technique: Shooting Short
+Shots that consistently strike the front iron (Shooting Short) are primarily caused by insufficient leg drive or jumping backward during release. When a player lacks upward momentum, the ball fails to carry to the basket. Correction involves establishing a balanced, shoulder-width stance, deepening knee flexion prior to shot ascent, and ensuring weight transfers straight up rather than fading away. Landings should occur softly on both feet at or slightly in front of the takeoff point.
+
+SOURCE: Magill & Anderson (2017) / Interim Report - Execution Error Corrective Protocol
+While a high arc is generally desirable, an excessively steep trajectory (Arc_Too_High) results from excessive wrist extension or releasing the ball too late behind the head. An overly high arc increases flight distance and sensitivity to air currents or minor release speed variations, reducing distance control. Correcting a sky-high trajectory involves shifting the release point forward in front of the brow and leveling out the swing plane to achieve an ideal 45-to-50 degree entrance angle.
+
+SOURCE: FIBA Level 1 Coaching Manual / Schmidt (1975) Motor Control
+Shooting energy originates from ground reaction forces generated by bending the ankles, knees, and hips. Stiff or locked knees (Knee_Lock) eliminate leg drive, forcing the upper body to strain to push the ball toward the hoop. Coaches must emphasize catching the ball with flexed knees in a low, athletic stance, allowing the upward explosion of the lower body to fluidly catapult the shooting arm into full vertical extension.
+
+SOURCE: Magill & Anderson (2017) / FIBA Coaching Manual Level 1
+A chest-pushing or shot-put motion occurs when the shooting elbow is tucked too low or positioned far outside the ball's line of center. In a proper basketball throw, the ball is elevated vertically above shoulder level before the wrist snaps. Pushing the ball with a flat, forward thrust eliminates backspin and trajectory height. Shooters must lift the elbow above shoulder height and snap the wrist downward to transition from a push to a clean, spinning release.
+
+SOURCE: Schmidt (1975) Psychological Review / USA Basketball 7 Tips
+Stance width and weight distribution directly govern balance and shot repeatability. A narrow base (Unstable_Base) or excessive forward leaning disrupts body center of mass during shot ascent, causing erratic release angles and body swaying. Maintaining feet shoulder-width apart, with body weight balanced evenly on the balls of the feet and knees flexed, establishes a rock-solid foundation for upright vertical elevation.
+
+SOURCE: FIBA Official Basketball Coaching Manual (Level 2) - Advanced Shooting Footwork
+Preparing for a catch-and-shoot opportunity requires catching the ball while airborne before establishing a landing. Whether utilizing a jump stop (both feet landing simultaneously) or a stride stop (inside foot landing first), catching in the air enables the shooter to absorb momentum and immediately spring vertically into the shot. Landings must be balanced with toes aligned toward the rim to eliminate rotational torque during elevation.
+
+SOURCE: FIBA Official Basketball Coaching Manual (Level 1 & Level 2) - Pull-Up Shooting Mechanics
+Transitioning from dribbling to a pull-up jump shot requires gathering horizontal velocity and converting it into pure vertical lift. On the final dribble, the ball must be gathered firmly with both hands as the shooter steps into a short, explosive stride stop. The feet should be kept close together; over-striding lowers the hips excessively and delays shot release. Gathering the ball smoothly without hesitation ensures seamless kinetic power transfer.
+
+SOURCE: Magill & Anderson (2017) Motor Learning & Control / FIBA Coaching Manual
+A dropped elbow during the release phase (Elbow_Drop) causes the shooting hand to drop below shoulder height, drastically flattening shot trajectory and reducing clearance over defensive contests. To remediate a dropped elbow, the coach must direct the player to keep the elbow elevated at eye level throughout extension and focus on finishing with the arm high, reaching into the imaginary top shelf of a cabinet.
+
+SOURCE: FIBA Official Basketball Coaching Manual (Level 2) - Advanced Skill Acquisition
+Utilizing simple kinetic analogies accelerates motor learning without overwhelming the athlete with complex conscious mechanical thoughts. For example, instructing a shooter to 'reach into the high cookie jar' encapsulates proper arm elevation, elbow extension, and relaxed wrist flexion into a single, intuitive image. Analogy coaching fosters implicit learning, yielding shooting mechanics that remain resilient under game fatigue and competitive stress.
+
+SOURCE: FIBA Official Basketball Coaching Manual (Level 2) - Advanced Principles of Skill Acquisition
+Developing highly adaptable, expert shooting technique requires incorporating variable practice conditions rather than repetitive, static drills alone. Practicing shots under changing distances, varied fatigue levels, and contested defensive pressure forces the nervous system to refine kinetic adjustments. This variability builds shooting consistency and accuracy capable of withstanding intense defensive close-outs in dynamic game scenarios.
+
+SOURCE: FIBA Official Basketball Coaching Manual (Level 1 & Level 2) - Inside & Perimeter Scoring
+An elevated release point is essential for shooting over taller defenders and maximizing entry angle into the rim. Extending the arm fully above the head at release creates a defensive shield using the shooter's body and arc path. When shooting in congested paint areas or off close-outs, maintaining a high release point prevents shot block attempts and maintains optimal soft touch off the glass or net.
+
+SOURCE: FIBA Official Basketball Coaching Manual (Level 2) - Shooter's Catch
+Catch-and-shoot efficiency relies heavily on pass placement and shooter preparation. The pass should arrive at waist-to-chest height directly in front of the shooter's power zone. The shooter must present target hands with the dominant hand already positioned behind the ball. Catching the ball smoothly while stepping into balance allows the player to immediately dip slightly and explode upward into a high-arc shot without rhythm disruption.
+
+SOURCE: Schmidt (1975) / FIBA Coaching Manual Level 1 - Alignment Correction
+When the shooting elbow flares outward away from the body midline (Elbow_Out), the triceps push force operates diagonally across the ball. This produces off-axis spin and causes the shot to spray left or right. Tucking the elbow slightly inward aligns the upper arm parallel to the shooting line, ensuring all forward and upward propulsion is directed precisely along the rim center plane.
+
+SOURCE: FIBA Official Basketball Coaching Manual (Level 2) - Advanced Lay-up Techniques
+The floater or tear-drop shot is executed when penetrating perimeter players encounter interior help defenders. The shooter leaps off one or two feet before reaching the defender, launching a high-arcing, soft touch shot over outstretched arms. The ball is propelled using a high release point with gentle finger touch rather than a hard wrist snap, enabling a steep vertical arc that drops softly into the basket.
+
+SOURCE: Chiossi et al. (2025) / Magill & Anderson (2017) - Post-Release Movement Control
+Excessive muscular tension during shot delivery inhibits smooth acceleration and restricts wrist flexibility. Shooters must keep the shoulder, arm, and hand relaxed throughout the motion (Shoulder_Tension, Prep Grip_Tense). Following release, muscles should immediately relax while maintaining posture control. Tension-free follow-through preserves touch, improves ball spin uniformity, and prevents premature fatigue during prolonged play.
+
+SOURCE: Biomechanics & Motor Learning in Basketball (FIBA Level 1 & Level 2)
+The physical geometry of a basketball hoop dictates that a ball approaching at a 45-degree angle sees an effective target opening significantly larger than a ball approaching at a shallow 30-degree angle. High arc shooting maximizes this opening area. By combining ground-up kinetic energy, a high elbow release, proper visual alignment, and a smooth wrist flick, shooters systematically produce the high trajectory necessary for high-percentage scoring.

@@ -14,32 +14,43 @@ AUDIO_DIR = "audio_cache"
 os.makedirs(AUDIO_DIR, exist_ok=True)
 app.mount("/audio", StaticFiles(directory=AUDIO_DIR), name="audio")
 
-COACH_VOICE = "en-US-GuyNeural"
+COACH_VOICE = "en-US-SteffanNeural"
 
-# Biomechanical sub-queries so RAG retrieves diverse paragraphs from coaching_rules.txt
+async def generate_voice_file(text: str, filename: str):
+    """Generates a calm, natural neural voice file"""
+    filepath = os.path.join(AUDIO_DIR, filename)
+    
+    # Removed the speed and pitch tweaks so it sounds like a real human!
+    communicate = edge_tts.Communicate(
+        text=text,
+        voice=COACH_VOICE
+    )
+    await communicate.save(filepath)
+
+# Punchy, energetic 5-to-8 word court-side cues!
+# These are the search queries sent to the Vector DB to pull the correct FIBA paragraphs!
 DIVERSE_ERROR_PROMPTS = {
     "Aim_Off": [
-        "Aim_Off: Focus on shooting elbow alignment under the ball",
-        "Aim_Off: Focus on guide hand releasing without pushing sideways",
-        "Aim_Off: Focus on squaring shoulders and pointing toes to the basket"
+        "Lateral deviation and shooting elbow flaring outward abduction",
+        "Non-dominant guide hand pushing the ball sideways side spin",
+        "Unstable base, narrow stance, and poor alignment feet"
     ],
     "Arc_Too_Flat": [
-        "Arc_Too_Flat: Focus on pushing arm upward to ceiling for a 45 degree angle",
-        "Arc_Too_Flat: Focus on elbow finishing above eye level on release",
-        "Arc_Too_Flat: Focus on lofting the ball into the cylinder rather than driving forward"
+        "Flight arc is too flat, need optimal entry angle 45 degrees",
+        "Elevate release point shooting elbow finishes above eye level",
+        "Short shots front iron insufficient leg drive jumping backward"
     ],
     "Low_Velocity": [
-        "Low_Velocity: Focus on bending knees and exploding power from legs",
-        "Low_Velocity: Focus on powerful wrist flexion to generate backspin and carry",
-        "Low_Velocity: Focus on full elbow extension without short-arming the release"
+        "Power from lower body legs flexed knees ground reaction forces",
+        "Smooth upward momentum unbroken transfer of force",
+        "Proper follow-through holding release pose fully extended"
     ],
     "Jerky_Motion": [
-        "Jerky_Motion: Focus on fluid momentum transfer without snapping shoulder",
-        "Jerky_Motion: Focus on relaxing wrist grip to eliminate release tension",
-        "Jerky_Motion: Focus on rhythmic continuous motion following the BEEF principle"
+        "Excessive muscular tension restricts wrist flexibility",
+        "Hitching or pausing at the forehead disrupts momentum",
+        "External focus of attention smooth fluid trajectory"
     ]
 }
-
 # Cache to store pre-warmed diverse feedback strings
 DIVERSE_FEEDBACK_CACHE = {}
 
@@ -76,25 +87,23 @@ async def startup_event():
     nice_shot_text = "Nice shot! Keep that same smooth motion."
     await generate_voice_file(nice_shot_text, "Made.mp3")
 
-    # 3. Pre-generate 3 Distinct RAG Tips & MP3s for every Error Type
-    for error_type, prompts in DIVERSE_ERROR_PROMPTS.items():
-        for i, sub_prompt in enumerate(prompts):
+# 3. Pre-generate 3 Distinct RAG Tips & MP3s for every Error Type
+    for error_type, search_queries in DIVERSE_ERROR_PROMPTS.items():
+        for i, query in enumerate(search_queries):
             cache_key = f"{error_type}_{i}"
-            print(f"Generating RAG Tip & Voice for [{cache_key}]...")
+            print(f"Searching FIBA manual and generating tip for [{cache_key}]...")
             
-            # Query the RAG graph (Chroma DB + Ollama)
-            result = agent_app.invoke({"error_type": sub_prompt})
-            tip_text = result["feedback"]
+            # 1. Query the RAG graph (Vector DB pulls FIBA text -> LLM summarizes to 8 words)
+            result = agent_app.invoke({"error_type": query})
+            tip_text = result["feedback"].replace('"', '').strip()
             
-            # Clean up quotes if LLM added any
-            tip_text = tip_text.replace('"', '').strip()
-            
+            # 2. Save the punchy AI tip to the cache
             DIVERSE_FEEDBACK_CACHE[cache_key] = tip_text
             
-            # Synthesize matching audio file (e.g., Aim_Off_0.mp3, Aim_Off_1.mp3)
+            # 3. Synthesize neural audio
             await generate_voice_file(tip_text, f"{cache_key}.mp3")
 
-    print("--- 100% READY! DIVERSE RAG VOICE POOL GENERATED ---\n")
+    print("--- 100% READY! PUNCHY COACH VOICE POOL GENERATED ---\n")
 
 
 @app.post("/analyze_movement")
