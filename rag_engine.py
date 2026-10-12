@@ -24,7 +24,11 @@ else:
     print("[rag_engine] No existing vector store found - building from scratch (slow, one-time cost)...")
     loader = TextLoader("coaching_rules.txt")
     docs = loader.load()
-    text_splitter = CharacterTextSplitter(chunk_size=300, chunk_overlap=20)
+    text_splitter = CharacterTextSplitter(
+        separator="\n",
+        chunk_size=150,      # Smaller chunks for high precision
+        chunk_overlap=20     # Overlap so sentences don't get cut in half
+    )
     chunks = text_splitter.split_documents(docs)
     print(f"[rag_engine] Embedding {len(chunks)} chunks...")
 

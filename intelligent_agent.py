@@ -14,25 +14,51 @@ def router_node(state: AgentState):
 
 # --- NODE: Retrieve ---
 def retrieve_node(state: AgentState):
-    if state["error_type"] in feedback_cache:
-        return {"feedback": feedback_cache[state["error_type"]], "retrieved_content": "CACHED"}
-
+    # Retrieve several passages instead of relying on only one.
     docs = retriever.invoke(state["error_type"])
-    content = docs[0].page_content if docs else ""
+
+    if not docs:
+        return {"retrieved_content": ""}
+
+    content = "\n\n".join(
+        doc.page_content for doc in docs[:3]
+    )
+
     return {"retrieved_content": content}
 
-# --- NODE: CRAG Grader ---
-def grader_node(state: AgentState):
-    if state["retrieved_content"] == "CACHED":
-        return {"is_relevant": "SKIP"}
 
-    prompt = (
-        f"You are a coach's assistant. Is the retrieved context relevant "
-        f"to fixing this error?\nError: {state['error_type']}\n"
-        f"Context: {state['retrieved_content']}\nAnswer ONLY 'YES' or 'NO'."
-    )
+def grader_node(state: AgentState):
+    context = state["retrieved_content"].strip()
+
+    if not context:
+        return {"is_relevant": "NO"}
+
+    prompt = f"""
+You are checking evidence for a basketball coaching system.
+
+DETECTED ERROR:
+{state["error_type"]}
+
+RETRIEVED TEXT FROM THE FIBA MANUAL:
+{context}
+
+Does the retrieved text contain useful advice directly
+related to correcting the detected error?
+
+Answer YES only if the text provides relevant evidence.
+Otherwise answer NO.
+
+Return exactly one word: YES or NO.
+"""
+
     response = llm.invoke(prompt)
-    return {"is_relevant": response.content.strip().upper()}
+    answer = response.content.strip().upper()
+
+    # Accept only an exact YES response.
+    if answer == "YES":
+        return {"is_relevant": "YES"}
+
+    return {"is_relevant": "NO"}
 
 # --- NODE: Generate ---
 def generate_node(state: AgentState):
@@ -42,30 +68,46 @@ def generate_node(state: AgentState):
     if "YES" in state["is_relevant"]:
         context = state["retrieved_content"]
     else:
-        print("Retrieval grade low, attempting broader search...")
-        broad_docs = vectorstore.similarity_search(state["error_type"], k=3)
+        broad_docs = vectorstore.similarity_search(state["error_type"], k=2)
         context = "\n".join(d.page_content for d in broad_docs)
 
-    # THE HYPE COACH PROMPT GOES HERE!
-    prompt = f"""You are a supportive, professional basketball shooting coach.
-Read this official coaching manual: {context}
+    base_error = state['error_type'].split('_')[0].strip()
 
-The player just made this error: {state['error_type']}. 
-Based ONLY on the manual, give the player ONE short, helpful coaching cue. 
-RULES:
-1. Maximum 8 words!
-2. Do not yell or use all-caps. Be encouraging but calm.
-3. Translate the biomechanics into a simple, practical tip.
-4. Do not include the error name in your response."""
+    # A blunt, direct prompt for a small model
+    prompt = f"""Task: Write a 5-word basketball coaching command to fix a {base_error}.
+Context: {context}
+Rules: Exactly 5 words. No intro. No explanation. Just the command."""
 
-    feedback = llm.invoke(prompt).content.strip()
-    
-    # Print it out to the console so you can see what it generated!
-    print(f"\n[AI GENERATED TIP]: {feedback}\n")
+    try:
+        response = llm.invoke(prompt)
+        raw = response.content.replace('"', '').strip()
+        
+        # If the LLM starts talking like a toddler or trips a safety filter, trigger fallback
+        if "cannot assist" in raw.lower() or "let's learn" in raw.lower() or "first" in raw.lower():
+            raise Exception("LLM went off the rails")
 
-    feedback_cache[state["error_type"]] = feedback
-    return {"feedback": feedback}
+        # --- PYTHON FORCE-TRUNCATION SAFETY NET ---
+        # Even if the AI writes an essay, Python physically lops it off at 8 words!
+        words = raw.split()
+        if len(words) > 8:
+            clean_feedback = " ".join(words[:8])
+        else:
+            clean_feedback = raw
+            
+    except Exception:
+        # Bulletproof athletic fallbacks
+        fallbacks = {
+            "Aim_Off": "Point your hand at the hoop.",
+            "Arc_Too_Flat": "Release the ball much higher.",
+            "Low_Velocity": "Fully extend your arm to throw.",
+            "Jerky_Motion": "Keep your arm motion smooth."
+        }
+        clean_feedback = fallbacks.get(base_error, "Keep your arm smooth.")
 
+    print(f"\n[{base_error} -> FORCED PUNCHY TIP]: {clean_feedback}\n")
+
+    feedback_cache[state["error_type"]] = clean_feedback
+    return {"feedback": clean_feedback}
 # --- Build the Graph ---
 workflow = StateGraph(AgentState)
 workflow.add_node("router", router_node)

@@ -27,28 +27,28 @@ async def generate_voice_file(text: str, filename: str):
     )
     await communicate.save(filepath)
 
-# Punchy, energetic 5-to-8 word court-side cues!
-# These are the search queries sent to the Vector DB to pull the correct FIBA paragraphs!
+
+# These queries are now highly targeted to pull specific FIBA paragraphs
 DIVERSE_ERROR_PROMPTS = {
     "Aim_Off": [
-        "Lateral deviation and shooting elbow flaring outward abduction",
-        "Non-dominant guide hand pushing the ball sideways side spin",
-        "Unstable base, narrow stance, and poor alignment feet"
+        "Aim_Off: Lateral deviation shooting plane guide hand side spin",
+        "Aim_Off: Square shoulders point toes to basket alignment",
+        "Aim_Off: Follow-through straight fingers target center of rim"
     ],
     "Arc_Too_Flat": [
-        "Flight arc is too flat, need optimal entry angle 45 degrees",
-        "Elevate release point shooting elbow finishes above eye level",
-        "Short shots front iron insufficient leg drive jumping backward"
+        "Arc_Too_Flat: High arc optimal entry angle 45 degrees trajectory",
+        "Arc_Too_Flat: Elevate release point elbow above eye level",
+        "Arc_Too_Flat: Upward trajectory shooting high into the cylinder"
     ],
     "Low_Velocity": [
-        "Power from lower body legs flexed knees ground reaction forces",
-        "Smooth upward momentum unbroken transfer of force",
-        "Proper follow-through holding release pose fully extended"
+        "Low_Velocity: Extend smoothly shooting arm full extension",
+        "Low_Velocity: Wrist flexion flick backspin carry distance",
+        "Low_Velocity: Fluid upward momentum transfer energy release"
     ],
     "Jerky_Motion": [
-        "Excessive muscular tension restricts wrist flexibility",
-        "Hitching or pausing at the forehead disrupts momentum",
-        "External focus of attention smooth fluid trajectory"
+        "Jerky_Motion: Smooth continuous motion rhythm no pausing",
+        "Jerky_Motion: Relax muscles tension forearm shoulder",
+        "Jerky_Motion: External focus trajectory fluid delivery"
     ]
 }
 # Cache to store pre-warmed diverse feedback strings
