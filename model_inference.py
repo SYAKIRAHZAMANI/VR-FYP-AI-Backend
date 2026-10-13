@@ -76,7 +76,7 @@ def _samples_to_tensor(samples):
     scaled = (raw - _scaler_mean) / _scaler_scale
 
     if len(scaled) >= MAX_SEQ_LEN:
-        seq = scaled[:MAX_SEQ_LEN]
+        seq = scaled[-MAX_SEQ_LEN:]
     else:
         pad_len = MAX_SEQ_LEN - len(scaled)
         seq = np.vstack([scaled, np.zeros((pad_len, len(FEATURE_COLS)), dtype=np.float32)])
@@ -117,11 +117,13 @@ def classify_error_subtype(samples):
     speeds = np.linalg.norm(vel, axis=1)
     release_speed = float(np.max(speeds)) if len(speeds) > 0 else 0.0
 
-    # 3. Calculate Upward loft
+    # 3. Calculate Upward loft using true 2D horizontal speed
     peak_idx = int(np.argmax(speeds)) if len(speeds) > 0 else 0
+    vx_at_release = float(vel[peak_idx, 0]) if len(vel) > 0 else 0.0
     vy_at_release = float(vel[peak_idx, 1]) if len(vel) > 0 else 0.0
-    vz_at_release = float(vel[peak_idx, 2]) if len(vel) > 0 else 1e-6
-    loft_ratio = vy_at_release / max(abs(vz_at_release), 1e-6)
+    vz_at_release = float(vel[peak_idx, 2]) if len(vel) > 0 else 0.0
+    v_horiz = float(np.hypot(vx_at_release, vz_at_release))
+    loft_ratio = vy_at_release / max(v_horiz, 1e-6)
 
     # 4. Calculate High-frequency jitter
     acc = raw[:, FEATURE_COLS.index("linear_ax"):FEATURE_COLS.index("linear_az") + 1]
@@ -129,7 +131,8 @@ def classify_error_subtype(samples):
     jitter = float(np.std(acc_mag)) if len(acc_mag) > 0 else 0.0
 
     # 5. Thresholds
-    JITTER_THRESHOLD = 999999.0  # Absurdly high to bypass keyboard spikes completely
+    # Calibrated to ~85th percentile of empirical VR trials (median ~70, 85% ~221 m/s^2)
+    JITTER_THRESHOLD = 250.0
     WEAK_SPEED_THRESHOLD = 6.5
     FLAT_LOFT_THRESHOLD = 0.4
 
