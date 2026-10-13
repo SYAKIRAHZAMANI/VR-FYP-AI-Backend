@@ -1,0 +1,74 @@
+{
+  "Aim_Off_0": {
+    "tip": "Keep your shooting elbow tucked under the ball so it flies straight.",
+    "source": "reviewed by researcher",
+    "query": "keep the shooting elbow tucked underneath the ball, not flared out",
+    "fallback_used": false
+  },
+  "Aim_Off_1": {
+    "tip": "Line your arm up with the basket before releasing for a straight shot.",
+    "source": "reviewed by researcher",
+    "query": "shoulder, elbow, wrist and finger line up with the center of the basket",
+    "fallback_used": false
+  },
+  "Aim_Off_2": {
+    "tip": "Point your fingers straight at the rim when letting go of the ball.",
+    "source": "reviewed by researcher",
+    "query": "follow through with fingers pointing straight at the target without twisting the hand",
+    "fallback_used": false
+  },
+  "Arc_Too_Flat_0": {
+    "tip": "Lift your elbow above eye level so the ball arcs high toward the hoop.",
+    "source": "reviewed by researcher",
+    "query": "elevate the release point so the elbow finishes above eye level",
+    "fallback_used": false
+  },
+  "Arc_Too_Flat_1": {
+    "tip": "Reach up high on your follow-through to give the ball a higher arc.",
+    "source": "reviewed by researcher",
+    "query": "reach into the high cookie jar, finish with the arm high",
+    "fallback_used": false
+  },
+  "Arc_Too_Flat_2": {
+    "tip": "Aim high above the rim so the ball drops softly into the basket.",
+    "source": "reviewed by researcher",
+    "query": "visualize the ball tracing a high arc through the air above the rim",
+    "fallback_used": false
+  },
+  "Low_Velocity_0": {
+    "tip": "Extend your shooting arm fully upward to give your shot more power.",
+    "source": "reviewed by researcher",
+    "query": "extend the shooting arm fully upward at release",
+    "fallback_used": false
+  },
+  "Low_Velocity_1": {
+    "tip": "Push with your entire arm, not just your wrist, for more power.",
+    "source": "reviewed by researcher",
+    "query": "use the whole body and arm, not only the hand, to generate power",
+    "fallback_used": false
+  },
+  "Low_Velocity_2": {
+    "tip": "Push the ball upward with smooth energy so it carries to the basket.",
+    "source": "reviewed by researcher",
+    "query": "release with smooth upward energy so the ball carries to the basket",
+    "fallback_used": false
+  },
+  "Jerky_Motion_0": {
+    "tip": "Keep your arm moving smoothly without pausing before you release the ball.",
+    "source": "reviewed by researcher",
+    "query": "continuous unbroken motion, do not pause the ball at the forehead",
+    "fallback_used": false
+  },
+  "Jerky_Motion_1": {
+    "tip": "Relax your shoulder and arm so your shooting motion stays smooth.",
+    "source": "reviewed by researcher",
+    "query": "keep the shoulder, arm and hand relaxed, tension makes the motion rough",
+    "fallback_used": false
+  },
+  "Jerky_Motion_2": {
+    "tip": "Release the ball in one smooth upward rhythm from start to finish.",
+    "source": "reviewed by researcher",
+    "query": "smooth upward momentum into a high extension gives a repeatable rhythm",
+    "fallback_used": false
+  }
+}
