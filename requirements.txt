@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+onnxruntime
+numpy
+edge-tts
+langchain
+langchain-community
+langchain-chroma
+langchain-ollama
+langgraph
